@@ -14,6 +14,7 @@ $env:BUILD_ENV = "development" # En PS
 # set TAG=dev => en CMD
 $env:TAG = "dev" # En PS
 docker-compose up -d --build
+# podman compose -f .\docker-compose.yml up -d --build
 
 # En produccion 
 # docker build -t my-airflow:prod .
