@@ -1,0 +1,7 @@
+customer_id,customer_name,email,address,join_date,created_at,updated_at
+1,"María González","maria.gonzalez@gmail.com","Calle Falsa 123, Madrid","2023-01-15","2023-01-15","2023-01-15"
+2,"Juan Pérez","juan.perez@hotmail.com","Avenida Siempre Viva 456","2023-02-20","2023-02-20","2023-02-20"
+3,"Ana López","ana.lopez","Plaza Mayor 789, Barcelona","2023-03-10","2023-03-10","2023-03-10"
+4,"Pedro Sánchez",,"Calle Luna 101, Sevilla","2023-04-05","2023-04-05","2023-04-05"
+5,"Laura Martín","laura.martin@yahoo.com","Calle del Sol 321, Valencia","2023-05-12","2023-05-12","2023-05-12"
+6,"Carlos Ruiz","carlos.ruiz","Gran Vía 654, Bilbao","2023-06-18","2023-06-18","2023-06-18" 

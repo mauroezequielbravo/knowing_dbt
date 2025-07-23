@@ -1,0 +1,77 @@
+#version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    #platform: linux/amd64
+    container_name: postgres-dbt
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: DB_Examples
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  airflow:
+    # image: apache/airflow:2.8.1
+    build: 
+      context: .
+      args:
+        - ENVIRONMENT=${BUILD_ENV:-production}
+    image: my-airflow:${TAG:-latest}
+    #platform: linux/amd64
+    container_name: airflow-dbt
+    # Opción 1: Sintaxis clásica (funciona siempre)
+    mem_limit: 4G
+    cpus: 2
+    # Opción 2: Sintaxis moderna (requiere Docker Swarm)
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '2'
+    #       memory: 4G
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/DB_Examples
+      AIRFLOW__CORE__FERNET_KEY: "EXAMPLE_FERNET_KEY_SHOULD_BE_SET"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__WEBSERVER__SECRET_KEY: "your-secret-key-here"
+      AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: 30
+    volumes:
+      - ./apache_airflow/dags:/opt/airflow/dags
+      - ./dbt:/opt/airflow/dbt
+      - ./entrypoint.sh:/entrypoint.sh
+      - airflow_data:/opt/airflow
+    ports:
+      - "8080:8080"
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.9.latest
+    #platform: linux/amd64
+    container_name: dbt-dbt
+    depends_on:
+      - postgres
+    volumes:
+      - ./dbt:/usr/app
+    working_dir: /usr/app
+    environment:
+      DBT_PROFILES_DIR: /usr/app
+    entrypoint: [ "tail", "-f", "/dev/null" ] # Mantiene el contenedor corriendo para desarrollo
+
+volumes:
+  airflow_data:
+  postgres_data:
+
+
+

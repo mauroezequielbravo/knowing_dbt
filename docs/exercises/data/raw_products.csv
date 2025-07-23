@@ -1,0 +1,9 @@
+product_id,product_name,price,category,created_at
+101,"Laptop HP",999.99,"Electrónica","2023-01-01"
+102,"Libro: Aprendiendo SQL",29.99,"Libros","2023-01-01"
+103,"Zapatos Running",,"Ropa","2023-01-01"
+104,"Mouse Inalámbrico",25.50,"Electrónica","2023-01-01"
+105,"Auriculares Bluetooth",89.99,"Electrónica","2023-01-01"
+106,"Camiseta Básica",19.99,"Ropa","2023-01-01"
+107,"Libro: Python para Principiantes",34.99,"Libros","2023-01-01"
+108,"Tablet Samsung",299.99,"Electrónica","2023-01-01" 

@@ -1,0 +1,12 @@
+knowing_dbt:
+  outputs:
+    dev:
+      dbname: DB_Examples
+      host: postgres
+      pass: airflow
+      port: 5432
+      schema: public
+      threads: 2
+      type: postgres
+      user: airflow
+  target: dev

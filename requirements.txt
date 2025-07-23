@@ -1,0 +1,4 @@
+dbt-postgres==1.9.0
+polars==1.31.0
+connectorx==0.4.3
+airflow
